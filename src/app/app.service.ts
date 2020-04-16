@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 })
 export class AppService {
 	public characters: Character[] = []
+	public flippedCardsIds: Number[] = [];
+	public clearMatchedCards = new Subject<Number>()
 	private charactersUpdated = new Subject<{ characters: Character[] }>()
 
 	constructor(private http: HttpClient) { }
@@ -22,7 +24,7 @@ export class AppService {
 							return {
 								id: character.id,
 								name: character.name,
-								image: character.thumbnail.path +'/portrait_medium.' + character.thumbnail.extension
+								image: character.thumbnail.path + '/portrait_medium.' + character.thumbnail.extension
 							}
 						})
 					}
@@ -35,12 +37,33 @@ export class AppService {
 				})
 			})
 	}
-	
-	getCharactersUpdateListener(){
-	return this.charactersUpdated.asObservable()
-}
+
+	getCharactersUpdateListener() {
+		return this.charactersUpdated.asObservable()
+	}
 
 	getCharacters() {
 		return this.characters
+	}
+
+	setFlippedCardId(cardId: Number) {
+		this.flippedCardsIds.push(cardId)
+	}
+
+	checkMatch() {
+		console.log('checking');
+		if (this.flippedCardsIds[0] === this.flippedCardsIds[1]) {
+			console.log('we have a match');
+			this.clearMatchedCards.next(this.flippedCardsIds[0])
+			this.flippedCardsIds = []
+			return true
+		} else {
+			// this.flippedCardsIds = []
+			return false
+		}
+	}
+
+	clearMatchedCardsListener() {
+		return this.clearMatchedCards.asObservable()
 	}
 }
