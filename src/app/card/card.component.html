@@ -1,4 +1,10 @@
-<div [ngStyle]="{
- background: 'url('+cardData.image+')',
- 'background-size': 'cover'
-}"></div>
+<section class="container">
+  <div class="card" (click)="flipCard($event)" [ngClass]="flipped ? 'flipped' : 'reset'">
+    <div class="front"></div>
+    <div class="back" [ngStyle]="{
+     background: 'url('+cardData.image+')',
+     'background-size': 'cover'
+    }"></div>
+  </div>
+</section>
+

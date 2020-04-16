@@ -8,9 +8,15 @@ import { Character } from '../models'
 })
 export class CardComponent implements OnInit {
 @Input() cardData: Character;
+public flipped:Boolean=false;
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(){
+  }
+  
+  flipCard(event: Event){
+   this.flipped = !this.flipped
   }
 
 }

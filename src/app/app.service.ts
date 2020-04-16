@@ -4,7 +4,6 @@ import { map } from 'rxjs/operators';
 import { Character } from './models'
 import { Subject } from 'rxjs';
 
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -12,11 +11,10 @@ export class AppService {
 	public characters: Character[] = []
 	private charactersUpdated = new Subject<{ characters: Character[] }>()
 
-
 	constructor(private http: HttpClient) { }
 
 	getCharactersData() {
-		return this.http.get<{ data: any }>('https://gateway.marvel.com:443/v1/public/characters?limit=16&apikey=e8e0b11770cdcf7392dfa429b569ddcb')
+		return this.http.get<{ data: any }>('https://gateway.marvel.com:443/v1/public/characters?limit=1&apikey=e8e0b11770cdcf7392dfa429b569ddcb')
 			.pipe(
 				map(data => {
 					return {
