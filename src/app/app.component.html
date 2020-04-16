@@ -5,5 +5,7 @@
   <button mat-raised-button color="accent">Reiniciar</button>
 </mat-toolbar>
 <mat-grid-list cols="8" rowHeight="1:1">
-  <mat-grid-tile *ngFor="let character of characters; index as i;">{{i}}</mat-grid-tile>
+  <mat-grid-tile *ngFor="let character of characters; index as i;">
+   <app-card [cardData]=character></app-card>
+  </mat-grid-tile>
 </mat-grid-list>

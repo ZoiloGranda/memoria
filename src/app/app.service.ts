@@ -24,7 +24,7 @@ export class AppService {
 							return {
 								id: character.id,
 								name: character.name,
-								image: character.thumbnail.path + '.' + character.thumbnail.extension
+								image: character.thumbnail.path +'/portrait_medium.' + character.thumbnail.extension
 							}
 						})
 					}
