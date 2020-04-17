@@ -21,30 +21,29 @@ export class AppService {
 			.subscribe(() => {
 				this.checkAllClearedCards()
 			})
-			this.getInitiateGameRestartListener()
-				.subscribe((value:Boolean) => {
-					if (value) {
-						this.flippedCardsIds= [];
-						this.restartGame.next(false)
-					}
-				})
+		this.getInitiateGameRestartListener()
+			.subscribe((value: Boolean) => {
+				if (value) {
+					this.flippedCardsIds = [];
+					this.restartGame.next(false)
+				}
+			})
 	}
 
 	getCharactersData(limit: Number) {
-		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&apikey=e8e0b11770cdcf7392dfa429b569ddcb`)
-			.pipe(
-				map(data => {
-					return {
-						characters: data.data.results.map(character => {
-							return {
-								id: character.id,
-								name: character.name,
-								image: this.checkImage(character.thumbnail.path, character.thumbnail.extension, character.id)
-							}
-						})
-					}
-				})
-			)
+		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&orderBy=modified&apikey=e8e0b11770cdcf7392dfa429b569ddcb`).pipe(
+			map(data => {
+				return {
+					characters: data.data.results.map(character => {
+						return {
+							id: character.id,
+							name: character.name,
+							image: this.checkImage(character.thumbnail.path, character.thumbnail.extension, character.id)
+						}
+					})
+				}
+			})
+		)
 			.subscribe((charactersData) => {
 				this.characters = charactersData.characters;
 				this.charactersUpdated.next({
@@ -114,14 +113,14 @@ export class AppService {
 			}
 		}, 1000);
 	}
-	
+
 	getInitiateGameRestartListener() {
 		return this.restartGame.asObservable()
 	}
-	
-	setInitiateGameRestartListener(value:Boolean){
+
+	setInitiateGameRestartListener(value: Boolean) {
 		this.restartGame.next(value)
 	}
-	
+
 
 }

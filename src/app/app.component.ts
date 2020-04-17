@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 	}
 	
 	startGame(){
-		this.appService.getCharactersData(3)
+		this.appService.getCharactersData(12)
 		this.appService.getCharactersUpdateListener()
 		.subscribe((characters) => {
 			this.characters = this.randomizeArray(characters.characters.concat(characters.characters));
