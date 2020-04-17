@@ -1,7 +1,5 @@
 @import '../../theme.scss';
 .container {
-  width: 120px;
-  height: 120px;
   position: relative;
   margin: 0 auto;
   border: 1px solid #ccc;
@@ -9,7 +7,7 @@
   -moz-perspective: 800px;
   -o-perspective: 800px;
   perspective: 800px;
-  border: 1px solid red;
+  border: 1px solid $primary-dark;
   box-sizing: border-box;
 }
 
@@ -75,15 +73,6 @@
   border: 5px solid green;
 }
 
-.checkmark {
-  width: 20px;
-  height: 20px;
-}
-
 a {
   display: block;
-}
-
-button {
-  margin-bottom: 50px;
 }

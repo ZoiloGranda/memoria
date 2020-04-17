@@ -1,5 +1,10 @@
+@import '../theme.scss';
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
+}
+mat-grid-list{
+ margin-top: 6%;
+ background-color: $primary-light;
 }

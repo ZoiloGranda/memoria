@@ -1,4 +1,4 @@
-<section class="container">
+<section class="container" [style.height.px]="containerHeight" [style.width.px]="containerWidth">
   <div class="card" (click)="flipCard(cardData.id); checkCards()" [ngClass]="status">
     <div class="front"></div>
     <div class="back"
