@@ -11,6 +11,7 @@ export class CardComponent implements OnInit {
 	@Input() cardData: Character;
 	public status: String = 'reset';
 	public cleared: Boolean = false;
+ private blockClick: Boolean = false;
 
 	constructor(private appService: AppService) { }
 
@@ -23,22 +24,26 @@ export class CardComponent implements OnInit {
 		this.appService.flipUnmatchedCardsListener()
 			.subscribe((cardId) => {
 				console.log(cardId);
+    this.blockClick = true;
 				setTimeout(() => {
-					this.flipCard(cardId)
-				}, 2000);
+					this.resetUnmatchedCards()
+     this.blockClick = false;
+				}, 1500);
 			})
 
 	}
 
 	flipCard(cardId) {
 		console.log(cardId);
-		if (this.status !== 'cleared' && this.status === 'reset') {
-			this.status = 'flipped';
-			this.saveFlippedCardId(cardId)
-		} else if (this.status !== 'cleared' && this.status === 'flipped') {
-			console.log('reset');
-			this.status = 'reset';
-		}
+  if (this.appService.getFlippedCardsIds()<2 && !this.blockClick) {
+   if (this.status === 'reset') {
+    this.status = 'flipped';
+    this.saveFlippedCardId(cardId)
+   } else if (this.status === 'flipped') {
+    console.log('reset');
+    this.status = 'reset';
+   }
+  }
 	}
 
 	saveFlippedCardId(cardId) {
@@ -46,7 +51,7 @@ export class CardComponent implements OnInit {
 	}
 
 	checkCards() {
-		if (this.status != 'cleared') {
+		if (this.status === 'flipped' && this.appService.getFlippedCardsIds()===2 ) {
 			this.appService.checkMatch()
 		}
 	}
@@ -56,6 +61,12 @@ export class CardComponent implements OnInit {
 			this.status = 'cleared';
 		}
 	}
+ 
+ resetUnmatchedCards(){
+  if (this.status === 'flipped') {
+   this.status = 'reset';
+  }
+ }
 
 
 }

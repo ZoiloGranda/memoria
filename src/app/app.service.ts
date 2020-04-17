@@ -17,7 +17,7 @@ export class AppService {
 	constructor(private http: HttpClient) { }
 
 	getCharactersData() {
-		return this.http.get<{ data: any }>('https://gateway.marvel.com:443/v1/public/characters?limit=1&apikey=e8e0b11770cdcf7392dfa429b569ddcb')
+		return this.http.get<{ data: any }>('https://gateway.marvel.com:443/v1/public/characters?limit=2&apikey=e8e0b11770cdcf7392dfa429b569ddcb')
 			.pipe(
 				map(data => {
 					return {
@@ -74,5 +74,9 @@ export class AppService {
 	
 	flipUnmatchedCardsListener() {
 		return this.flipUnmatchedCards.asObservable()
+	}
+	
+	getFlippedCardsIds(){
+		return this.flippedCardsIds.length
 	}
 }
