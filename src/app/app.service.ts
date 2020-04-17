@@ -9,12 +9,12 @@ import { Subject } from 'rxjs';
 })
 export class AppService {
 	characters: Character[] = []
-	public flippedCardsIds: Number[] = [];
-	public clearMatchedCards = new Subject<Number>()
-	public flipUnmatchedCards = new Subject<Boolean>()
-	public activateFireworks = new Subject<Boolean>()
-	public charactersUpdated = new Subject<{ characters: Character[] }>()
-	public restartGame = new Subject<Boolean>();
+	flippedCardsIds: Number[] = [];
+	private clearMatchedCards = new Subject<Number>()
+	private flipUnmatchedCards = new Subject<Boolean>()
+	private activateFireworks = new Subject<Boolean>()
+	private charactersUpdated = new Subject<{ characters: Character[] }>()
+	private restartGame = new Subject<Boolean>();
 
 	constructor(private http: HttpClient) {
 		this.clearMatchedCardsListener()
