@@ -33,7 +33,6 @@ export class AppService {
 			)
 			.subscribe((charactersData) => {
 				this.characters = charactersData.characters;
-				console.log(this.characters);
 				this.charactersUpdated.next({
 					characters: [...this.characters]
 				})
@@ -53,15 +52,12 @@ export class AppService {
 	}
 
 	checkMatch() {
-		console.log('checking');
 		if (this.flippedCardsIds.length === 2) {
 			if (this.flippedCardsIds[0] === this.flippedCardsIds[1]) {
-				console.log('we have a match');
 				this.clearMatchedCards.next(this.flippedCardsIds[0])
 				this.flippedCardsIds = []
 				return true
 			} else {
-				console.log('we dont have a match');
 				this.flipUnmatchedCards.next(true)
 				this.flippedCardsIds = []
 				return false

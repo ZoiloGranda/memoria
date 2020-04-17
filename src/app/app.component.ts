@@ -22,9 +22,7 @@ export class AppComponent implements OnInit {
 			Breakpoints.HandsetLandscape,
 			Breakpoints.HandsetPortrait
 		]).subscribe(result => {
-			console.log(result);
 			if (result.matches && breakpointObserver.isMatched('(orientation: portrait)')) {
-				console.log(breakpointObserver.isMatched('(orientation: portrait)'));
 				this.activatePortraitLayout();
 			}else{
 				this.activateLandscapeLayout();
@@ -36,7 +34,6 @@ export class AppComponent implements OnInit {
 		this.appService.getCharactersUpdateListener()
 			.subscribe((characters) => {
 				this.characters = this.randomizeArray(characters.characters.concat(characters.characters));
-				console.log(this.characters);
 			})
 	}
 
