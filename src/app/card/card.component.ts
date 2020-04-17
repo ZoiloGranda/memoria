@@ -3,7 +3,6 @@ import { Character } from '../models'
 import { AppService } from '../app.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
-
 @Component({
 	selector: 'app-card',
 	templateUrl: './card.component.html',
@@ -18,15 +17,12 @@ export class CardComponent implements OnInit {
 	public containerWidth: Number = 120;
 	private blockClick: Boolean = false;
 
-
 	constructor(private appService: AppService,breakpointObserver: BreakpointObserver) {
 		breakpointObserver.observe([
 			Breakpoints.HandsetLandscape,
 			Breakpoints.HandsetPortrait
 		]).subscribe(result => {
-			console.log(result);
 			if (result.matches && breakpointObserver.isMatched('(orientation: portrait)')) {
-				console.log(breakpointObserver.isMatched('(orientation: portrait)'));
 				this.activatePortraitLayout();
 			} else {
 				this.activateLandscapeLayout();
@@ -37,12 +33,10 @@ export class CardComponent implements OnInit {
 	ngOnInit() {
 		this.appService.clearMatchedCardsListener()
 			.subscribe((matchedCardsId) => {
-				console.log(matchedCardsId);
 				this.clearCards(matchedCardsId)
 			})
 		this.appService.flipUnmatchedCardsListener()
 			.subscribe((cardId) => {
-				console.log(cardId);
 				this.blockClick = true;
 				setTimeout(() => {
 					this.resetUnmatchedCards()
@@ -53,7 +47,6 @@ export class CardComponent implements OnInit {
 	}
 
 	flipCard(cardId) {
-		console.log(cardId);
 		if (this.appService.getFlippedCardsIds() < 2 && !this.blockClick) {
 			if (this.status === 'reset') {
 				this.status = 'flipped';
