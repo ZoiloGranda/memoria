@@ -16,8 +16,8 @@ export class AppService {
 
 	constructor(private http: HttpClient) { }
 
-	getCharactersData() {
-		return this.http.get<{ data: any }>('https://gateway.marvel.com:443/v1/public/characters?limit=2&apikey=e8e0b11770cdcf7392dfa429b569ddcb')
+	getCharactersData(limit: Number) {
+		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&apikey=e8e0b11770cdcf7392dfa429b569ddcb`)
 			.pipe(
 				map(data => {
 					return {
@@ -25,7 +25,7 @@ export class AppService {
 							return {
 								id: character.id,
 								name: character.name,
-								image: character.thumbnail.path + '/portrait_medium.' + character.thumbnail.extension
+								image: this.checkImage(character.thumbnail.path, character.thumbnail.extension, character.id)
 							}
 						})
 					}
@@ -33,6 +33,7 @@ export class AppService {
 			)
 			.subscribe((charactersData) => {
 				this.characters = charactersData.characters;
+				console.log(this.characters);
 				this.charactersUpdated.next({
 					characters: [...this.characters]
 				})
@@ -71,12 +72,24 @@ export class AppService {
 	clearMatchedCardsListener() {
 		return this.clearMatchedCards.asObservable()
 	}
-	
+
 	flipUnmatchedCardsListener() {
 		return this.flipUnmatchedCards.asObservable()
 	}
-	
-	getFlippedCardsIds(){
+
+	getFlippedCardsIds() {
 		return this.flippedCardsIds.length
 	}
+
+	checkImage(imagePath: String, extension:String, characterId: Number) {
+		let lastSlash = imagePath.lastIndexOf('/');
+		let lastPath = imagePath.substring(lastSlash + 1);
+		if (lastPath ==='image_not_available') {
+			return `https://api.adorable.io/avatars/120/${characterId}@adorable.io.png`
+		} else {
+			return imagePath + '/portrait_medium.' + extension
+		}
+	}
+
+
 }

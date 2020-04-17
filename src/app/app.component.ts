@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 	constructor(private appService: AppService) { }
 
 	ngOnInit() {
-		this.appService.getCharactersData()
+		this.appService.getCharactersData(16)
 		this.appService.getCharactersUpdateListener()
 			.subscribe((characters) => {
 				this.characters = this.randomizeArray(characters.characters.concat(characters.characters));

@@ -9,6 +9,7 @@ import { AppService } from '../app.service';
 })
 export class CardComponent implements OnInit {
 	@Input() cardData: Character;
+	
 	public status: String = 'reset';
 	public cleared: Boolean = false;
  private blockClick: Boolean = false;
