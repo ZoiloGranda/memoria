@@ -1,3 +1,4 @@
+@import '../../theme.scss';
 .container {
   width: 120px;
   height: 120px;
@@ -45,7 +46,7 @@
 }
 
 .card .front {
-  background: red;
+  background: $accent-light;
 }
 
 .card .back {
