@@ -10,11 +10,13 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import { CardComponent } from './card/card.component';
+import { FireworksComponent } from './fireworks/fireworks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CardComponent
+    CardComponent,
+    FireworksComponent
   ],
   imports: [
     BrowserModule,

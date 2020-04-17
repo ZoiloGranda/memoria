@@ -33,6 +33,7 @@ export class CardComponent implements OnInit {
 	ngOnInit() {
 		this.appService.clearMatchedCardsListener()
 			.subscribe((matchedCardsId) => {
+				console.log('jum');
 				this.clearCards(matchedCardsId)
 			})
 		this.appService.flipUnmatchedCardsListener()

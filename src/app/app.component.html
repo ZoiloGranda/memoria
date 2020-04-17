@@ -4,6 +4,7 @@
   <span class="example-fill-remaining-space"></span>
   <button mat-raised-button color="accent">Reiniciar</button>
 </mat-toolbar>
+<app-fireworks  *ngIf="activateFireworks"></app-fireworks>
 <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" [gutterSize]="gutterSize">
   <mat-grid-tile *ngFor="let character of characters;">
    <app-card [cardData]=character></app-card>

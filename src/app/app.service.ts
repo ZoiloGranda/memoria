@@ -12,9 +12,15 @@ export class AppService {
 	public flippedCardsIds: Number[] = [];
 	public clearMatchedCards = new Subject<Number>()
 	public flipUnmatchedCards = new Subject<Boolean>()
+	public activateFireworks = new Subject<Boolean>()
 	private charactersUpdated = new Subject<{ characters: Character[] }>()
 
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) {
+		this.clearMatchedCardsListener()
+			.subscribe(() => {
+				this.checkAllClearedCards()
+			})
+	}
 
 	getCharactersData(limit: Number) {
 		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&apikey=e8e0b11770cdcf7392dfa429b569ddcb`)
@@ -73,18 +79,32 @@ export class AppService {
 		return this.flipUnmatchedCards.asObservable()
 	}
 
+	activateFireworksListener() {
+		return this.activateFireworks.asObservable()
+	}
+
 	getFlippedCardsIds() {
 		return this.flippedCardsIds.length
 	}
 
-	checkImage(imagePath: String, extension:String, characterId: Number) {
+	checkImage(imagePath: String, extension: String, characterId: Number) {
 		let lastSlash = imagePath.lastIndexOf('/');
 		let lastPath = imagePath.substring(lastSlash + 1);
-		if (lastPath ==='image_not_available') {
+		if (lastPath === 'image_not_available') {
 			return `https://api.adorable.io/avatars/120/${characterId}@adorable.io.png`
 		} else {
 			return imagePath + '/portrait_medium.' + extension
 		}
+	}
+
+	checkAllClearedCards() {
+		setTimeout(() => {
+			let allCards = document.querySelectorAll('.card').length
+			let allClearedCards = document.querySelectorAll('.cleared').length
+			if (allCards === allClearedCards) {
+				this.activateFireworks.next(true)
+			}
+		}, 1000);
 	}
 
 
