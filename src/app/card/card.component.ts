@@ -40,9 +40,6 @@ export class CardComponent implements OnInit {
    if (this.status === 'reset') {
     this.status = 'flipped';
     this.saveFlippedCardId(cardId)
-   } else if (this.status === 'flipped') {
-    console.log('reset');
-    this.status = 'reset';
    }
   }
 	}
