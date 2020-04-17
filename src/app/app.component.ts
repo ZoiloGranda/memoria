@@ -12,11 +12,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class AppComponent implements OnInit {
 	title = 'memoria';
-	public characters: Character[] = [];
-	public cols:Number= 8;
-	public gutterSize:String='2px';
-	public rowHeight:String='120px';
-	public activateFireworks:Boolean=false;
+	characters: Character[] = [];
+	cols:Number= 8;
+	gutterSize:String='2px';
+	rowHeight:String='120px';
+	activateFireworks:Boolean=false;
 
 	constructor(private appService: AppService, breakpointObserver: BreakpointObserver) {
 		breakpointObserver.observe([
@@ -31,15 +31,19 @@ export class AppComponent implements OnInit {
 		});
 	}
 	ngOnInit() {
+		this.startGame()
+	}
+	
+	startGame(){
 		this.appService.getCharactersData(3)
 		this.appService.getCharactersUpdateListener()
-			.subscribe((characters) => {
-				this.characters = this.randomizeArray(characters.characters.concat(characters.characters));
-			})
-			this.appService.activateFireworksListener()
-				.subscribe((value) => {
-					this.activateFireworks = value;
-				})
+		.subscribe((characters) => {
+			this.characters = this.randomizeArray(characters.characters.concat(characters.characters));
+		})
+		this.appService.activateFireworksListener()
+		.subscribe((value) => {
+			this.activateFireworks = value;
+		})
 	}
 
 	randomizeArray(array) {
@@ -51,10 +55,19 @@ export class AppComponent implements OnInit {
 		this.gutterSize='0px';
 		this.rowHeight='90px';
 	}
+	
 	activateLandscapeLayout(){
 		this.cols = 8;
 		this.gutterSize='2px';
 		this.rowHeight='120px'
 	}
+	
+	initiateGameRestart(){
+		this.appService.setInitiateGameRestartListener(true)
+		this.characters = [];
+		this.activateFireworks = false;
+		this.startGame();
+	}
+	
 
 }

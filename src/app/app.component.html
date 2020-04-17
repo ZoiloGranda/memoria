@@ -2,7 +2,7 @@
   <span>Memoria</span>
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
-  <button mat-raised-button color="accent">Reiniciar</button>
+  <button mat-raised-button color="accent" (click)="initiateGameRestart()">Reiniciar</button>
 </mat-toolbar>
 <app-fireworks  *ngIf="activateFireworks"></app-fireworks>
 <mat-grid-list [cols]="cols" [rowHeight]="rowHeight" [gutterSize]="gutterSize">

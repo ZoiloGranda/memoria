@@ -8,18 +8,26 @@ import { Subject } from 'rxjs';
 	providedIn: 'root'
 })
 export class AppService {
-	public characters: Character[] = []
+	characters: Character[] = []
 	public flippedCardsIds: Number[] = [];
 	public clearMatchedCards = new Subject<Number>()
 	public flipUnmatchedCards = new Subject<Boolean>()
 	public activateFireworks = new Subject<Boolean>()
-	private charactersUpdated = new Subject<{ characters: Character[] }>()
+	public charactersUpdated = new Subject<{ characters: Character[] }>()
+	public restartGame = new Subject<Boolean>();
 
 	constructor(private http: HttpClient) {
 		this.clearMatchedCardsListener()
 			.subscribe(() => {
 				this.checkAllClearedCards()
 			})
+			this.getInitiateGameRestartListener()
+				.subscribe((value:Boolean) => {
+					if (value) {
+						this.flippedCardsIds= [];
+						this.restartGame.next(false)
+					}
+				})
 	}
 
 	getCharactersData(limit: Number) {
@@ -106,6 +114,14 @@ export class AppService {
 			}
 		}, 1000);
 	}
-
+	
+	getInitiateGameRestartListener() {
+		return this.restartGame.asObservable()
+	}
+	
+	setInitiateGameRestartListener(value:Boolean){
+		this.restartGame.next(value)
+	}
+	
 
 }

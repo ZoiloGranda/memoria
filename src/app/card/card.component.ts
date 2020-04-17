@@ -17,7 +17,7 @@ export class CardComponent implements OnInit {
 	public containerWidth: Number = 120;
 	private blockClick: Boolean = false;
 
-	constructor(private appService: AppService,breakpointObserver: BreakpointObserver) {
+	constructor(private appService: AppService, breakpointObserver: BreakpointObserver) {
 		breakpointObserver.observe([
 			Breakpoints.HandsetLandscape,
 			Breakpoints.HandsetPortrait
@@ -33,7 +33,6 @@ export class CardComponent implements OnInit {
 	ngOnInit() {
 		this.appService.clearMatchedCardsListener()
 			.subscribe((matchedCardsId) => {
-				console.log('jum');
 				this.clearCards(matchedCardsId)
 			})
 		this.appService.flipUnmatchedCardsListener()
@@ -44,7 +43,14 @@ export class CardComponent implements OnInit {
 					this.blockClick = false;
 				}, 1500);
 			})
-
+		this.appService.getInitiateGameRestartListener()
+			.subscribe((value: Boolean) => {
+				if (value) {
+					this.status = 'reset';
+					this.cleared = false;
+					this.blockClick = false;
+				}
+			})
 	}
 
 	flipCard(cardId) {
