@@ -11,6 +11,7 @@ export class AppService {
 	public characters: Character[] = []
 	public flippedCardsIds: Number[] = [];
 	public clearMatchedCards = new Subject<Number>()
+	public flipUnmatchedCards = new Subject<Boolean>()
 	private charactersUpdated = new Subject<{ characters: Character[] }>()
 
 	constructor(private http: HttpClient) { }
@@ -52,18 +53,26 @@ export class AppService {
 
 	checkMatch() {
 		console.log('checking');
-		if (this.flippedCardsIds[0] === this.flippedCardsIds[1]) {
-			console.log('we have a match');
-			this.clearMatchedCards.next(this.flippedCardsIds[0])
-			this.flippedCardsIds = []
-			return true
-		} else {
-			// this.flippedCardsIds = []
-			return false
+		if (this.flippedCardsIds.length === 2) {
+			if (this.flippedCardsIds[0] === this.flippedCardsIds[1]) {
+				console.log('we have a match');
+				this.clearMatchedCards.next(this.flippedCardsIds[0])
+				this.flippedCardsIds = []
+				return true
+			} else {
+				console.log('we dont have a match');
+				this.flipUnmatchedCards.next(true)
+				this.flippedCardsIds = []
+				return false
+			}
 		}
 	}
 
 	clearMatchedCardsListener() {
 		return this.clearMatchedCards.asObservable()
+	}
+	
+	flipUnmatchedCardsListener() {
+		return this.flipUnmatchedCards.asObservable()
 	}
 }

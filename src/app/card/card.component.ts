@@ -20,13 +20,24 @@ export class CardComponent implements OnInit {
 				console.log(matchedCardsId);
 				this.clearCards(matchedCardsId)
 			})
+		this.appService.flipUnmatchedCardsListener()
+			.subscribe((cardId) => {
+				console.log(cardId);
+				setTimeout(() => {
+					this.flipCard(cardId)
+				}, 2000);
+			})
+
 	}
 
 	flipCard(cardId) {
 		console.log(cardId);
-		if (this.status != 'cleared') {
-			this.status = this.status === 'flipped' ? 'reset' : 'flipped'
+		if (this.status !== 'cleared' && this.status === 'reset') {
+			this.status = 'flipped';
 			this.saveFlippedCardId(cardId)
+		} else if (this.status !== 'cleared' && this.status === 'flipped') {
+			console.log('reset');
+			this.status = 'reset';
 		}
 	}
 
