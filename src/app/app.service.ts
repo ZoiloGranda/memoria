@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Character } from './models'
 import { Subject } from 'rxjs';
+import { environment } from './../environments/environment';
 
 @Injectable({
 	providedIn: 'root'

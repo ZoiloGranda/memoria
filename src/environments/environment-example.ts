@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  marvel_api_token: '123123187akjsckjsd'
+  marvel_api_token: 'MARVEL_API_TOKEN_GOES_HERE'
 };
 
 /*
