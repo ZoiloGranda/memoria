@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Character } from './models'
 import { Subject } from 'rxjs';
-import { environment } from './../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,9 +30,8 @@ export class AppService {
 			})
 	}
 
-	getCharactersData(limit: Number) {
-		let marvel_api_token = environment.marvel_api_token
-		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&orderBy=modified&apikey=${marvel_api_token}`).pipe(
+	getCharactersData() {
+		return this.http.get<{ data: any }>(`http://localhost:8080/getcharacters`).pipe(
 			map(data => {
 				return {
 					characters: data.data.results.map(character => {
