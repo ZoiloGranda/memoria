@@ -32,7 +32,8 @@ export class AppService {
 	}
 
 	getCharactersData(limit: Number) {
-		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&orderBy=modified&apikey=e8e0b11770cdcf7392dfa429b569ddcb`).pipe(
+		let marvel_api_token = environment.marvel_api_token
+		return this.http.get<{ data: any }>(`https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&orderBy=modified&apikey=${marvel_api_token}`).pipe(
 			map(data => {
 				return {
 					characters: data.data.results.map(character => {
