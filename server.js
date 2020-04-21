@@ -41,12 +41,12 @@ function getCharactersData(req, res, next) {
     console.log(`statusCode: ${response.statusCode}`)
     response.on('data', d => {
       charactersData += d
-      process.stdout.write(d)
+      // process.stdout.write(d)
     })
     response.on('end', () => {
       try {
         const parsedData = JSON.parse(charactersData);
-        console.log({ parsedData });
+        console.log(parsedData.data.limit);
         res.send(parsedData)
       } catch (e) {
         console.error(e.message);

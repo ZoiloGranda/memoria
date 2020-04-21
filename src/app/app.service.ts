@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Character } from './models'
 import { Subject } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,7 +32,8 @@ export class AppService {
 	}
 
 	getCharactersData() {
-		return this.http.get<{ data: any }>(`http://localhost:8080/getcharacters`).pipe(
+		let api_url = environment.api_url
+		return this.http.get<{ data: any }>(api_url).pipe(
 			map(data => {
 				return {
 					characters: data.data.results.map(character => {
