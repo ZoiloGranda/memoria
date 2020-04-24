@@ -8,6 +8,9 @@ require('dotenv').config()
 
 app.use(express.static(__dirname + '/dist/memoria'));
 app.use((req, res, next) => {
+	console.log(req);
+	console.log(port);
+	console.log(process.env);
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
 	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
