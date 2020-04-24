@@ -1,5 +1,11 @@
 # Memoria
 
+## Heroku
+
+Heroku runs `npm run build` and `npm start` on every deploy
+
+## Angular CLI
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 
 ## Development server
