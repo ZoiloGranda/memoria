@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'http://localhost:8080/getcharacters'
+  api_url: 'https://memoriazg.herokuapp.com/getcharacters'
 };
