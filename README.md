@@ -1,5 +1,9 @@
 # Memoria
 
+## Setup
+
+Create `.env` file base on `.env-example`, the Marvel API keys can be obtained from the Marvel Developers API
+
 ## Heroku
 
 Heroku runs `npm run build` and `npm start` on every deploy
